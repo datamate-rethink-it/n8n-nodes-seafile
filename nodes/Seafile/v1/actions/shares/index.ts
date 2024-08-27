@@ -1,11 +1,11 @@
-import * as smartlink from './smartlink.operation';
+import * as internal from './internal.operation';
 import * as list from './list.operation';
 import * as create from './create.operation';
 import * as remove from './remove.operation';
 
 import type { INodeProperties } from 'n8n-workflow';
 
-export { smartlink, list, create, remove };
+export { internal, list, create, remove };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -32,10 +32,10 @@ export const descriptions: INodeProperties[] = [
 				action: 'Delete share link',
 			},
 			{
-				name: 'Get Smart Link',
-				value: 'smartlink',
-				description: 'Get a smart link for a file',
-				action: 'Get smart link',
+				name: 'Get Internal Link',
+				value: 'internal',
+				description: 'Get an internal link for a file',
+				action: 'Get internal link',
 			},
 			{
 				name: 'List Share Links',
@@ -44,9 +44,9 @@ export const descriptions: INodeProperties[] = [
 				action: 'List share links',
 			},
 		],
-		default: 'smartlink',
+		default: 'internal',
 	},
-	...smartlink.description,
+	...internal.description,
 	...list.description,
 	...create.description,
 	...remove.description,

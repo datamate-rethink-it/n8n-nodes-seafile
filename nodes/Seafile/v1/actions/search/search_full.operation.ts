@@ -175,7 +175,7 @@ export const properties: INodeProperties[] = [
 				description: 'Whether return permission info of the file or not',
 			},
 			{
-				displayName: 'Last Modified From',
+				displayName: 'Last Modified After',
 				name: 'time_from',
 				type: 'dateTime',
 				default: '',
@@ -183,7 +183,7 @@ export const properties: INodeProperties[] = [
 					'The date and time when the file was modified ("from" value). Supported inputs are date (ISO format like 2024-08-25T15:34:47 or timestamps with 13 digits.',
 			},
 			{
-				displayName: 'Last Modified To',
+				displayName: 'Last Modified Before',
 				name: 'time_to',
 				type: 'dateTime',
 				default: '',

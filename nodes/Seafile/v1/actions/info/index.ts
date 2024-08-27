@@ -1,9 +1,10 @@
 import * as account from './account.operation';
 import * as server from './server.operation';
+import * as file_activity from './file_activity.operation';
 
 import type { INodeProperties } from 'n8n-workflow';
 
-export { account, server };
+export { account, server, file_activity };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -24,6 +25,12 @@ export const descriptions: INodeProperties[] = [
 				action: 'Get account details',
 			},
 			{
+				name: 'File Activity',
+				value: 'file_activity',
+				description: 'Get all file activity of the user',
+				action: 'Get all file activity of the user',
+			},
+			{
 				name: 'Server Info',
 				value: 'server',
 				description: 'Get the server details',
@@ -34,4 +41,5 @@ export const descriptions: INodeProperties[] = [
 	},
 	...account.description,
 	...server.description,
+	...file_activity.description,
 ];

@@ -5,6 +5,7 @@ import * as info from './info';
 import * as search from './search';
 import * as folders from './folders';
 import * as share from './shares';
+import * as tags from './tags';
 
 export const versionDescription: INodeTypeDescription = {
 	displayName: 'Seafile',
@@ -52,6 +53,10 @@ export const versionDescription: INodeTypeDescription = {
 					name: 'Share',
 					value: 'share',
 				},
+				{
+					name: 'Tag',
+					value: 'tags',
+				},
 			],
 			default: 'files',
 		},
@@ -60,5 +65,6 @@ export const versionDescription: INodeTypeDescription = {
 		...info.descriptions,
 		...search.descriptions,
 		...share.descriptions,
+		...tags.descriptions,
 	],
 };

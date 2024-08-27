@@ -5,6 +5,7 @@ import * as search from './search';
 import * as info from './info';
 import * as folders from './folders';
 import * as share from './shares';
+import * as tags from './tags';
 
 import { Seafile } from './Interfaces';
 
@@ -36,6 +37,8 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				responseData = await folders[seafile.operation].execute.call(this, i);
 			} else if (seafile.resource === 'share') {
 				responseData = await share[seafile.operation].execute.call(this, i);
+			} else if (seafile.resource === 'tags') {
+				responseData = await tags[seafile.operation].execute.call(this, i);
 			}
 
 			const executionData = this.helpers.constructExecutionMetaData(

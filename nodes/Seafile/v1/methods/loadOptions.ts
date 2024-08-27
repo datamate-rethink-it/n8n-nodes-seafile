@@ -168,3 +168,33 @@ export async function getShareLink(this: ILoadOptionsFunctions): Promise<INodePr
 
 	return returnData;
 }
+
+export async function getTags(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+	const returnData: INodePropertyOptions[] = [];
+
+	const credentials = await this.getCredentials('seafileApi');
+	const baseURL = credentials?.domain;
+
+	const repo = this.getCurrentNodeParameter('repo') as string;
+	if (!repo) {
+		return returnData;
+	}
+
+	const options: IRequestOptions = {
+		method: 'GET',
+		qs: {},
+		uri: `${baseURL}/api/v2.1/repos/${repo}/repo-tags/`,
+		json: true,
+	};
+
+	const repoTags = await this.helpers.requestWithAuthentication.call(this, 'seafileApi', options);
+
+	for (const tag of repoTags.repo_tags) {
+		returnData.push({
+			name: tag.tag_name,
+			value: tag.repo_tag_id,
+		});
+	}
+
+	return returnData;
+}
