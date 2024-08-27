@@ -1,9 +1,10 @@
 import * as create from './create.operation';
 import * as remove from './remove.operation';
+import * as list from './list.operation';
 
 import type { INodeProperties } from 'n8n-workflow';
 
-export { create, remove };
+export { create, remove, list };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -29,9 +30,16 @@ export const descriptions: INodeProperties[] = [
 				description: 'Delete a folder in a library',
 				action: 'Delete a folder',
 			},
+			{
+				name: 'List Folder',
+				value: 'list',
+				description: 'List all files in a folder',
+				action: 'List files in a folder',
+			},
 		],
 		default: 'create',
 	},
 	...create.description,
 	...remove.description,
+	...list.description,
 ];

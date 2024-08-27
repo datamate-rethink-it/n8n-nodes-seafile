@@ -4,7 +4,7 @@ type SeafileMap = {
 	files: 'get' | 'remove' | 'upload' | 'download' | 'move' | 'rename' | 'copy' | 'lock' | 'unlock';
 	search: 'search';
 	info: 'account' | 'server';
-	folders: 'create' | 'delete';
+	folders: 'create' | 'remove' | 'list';
 };
 
 export type Seafile = AllEntities<SeafileMap>;
