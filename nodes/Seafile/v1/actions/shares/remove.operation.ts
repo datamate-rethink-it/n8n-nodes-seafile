@@ -22,20 +22,26 @@ export const properties: INodeProperties[] = [
 			'The name of SeaTable library to access. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
 	{
-		displayName: 'Keyword',
-		name: 'q',
-		type: 'string',
-		default: '',
+		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+		displayName: 'Share Link',
+		name: 'token',
+		type: 'options',
+		placeholder: 'Select a share link',
 		required: true,
-		description: 'Please provide the name of a file',
-		hint: 'Search throught the path',
+		typeOptions: {
+			loadOptionsMethod: 'getShareLink',
+		},
+		default: '',
+		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
+		description:
+			'The share link you want to remove. Choose from the list, or specify the share link token using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
 ];
 
 const displayOptions = {
 	show: {
-		resource: ['search'],
-		operation: ['search'],
+		resource: ['share'],
+		operation: ['remove'],
 	},
 };
 
@@ -49,19 +55,16 @@ export async function execute(
 	const baseURL = credentials?.domain;
 
 	// get parameters
-	const repo = this.getNodeParameter('repo', index) as string;
-	const q = this.getNodeParameter('q', index) as string;
+	const token = this.getNodeParameter('token', index) as string;
 
 	const options: IRequestOptions = {
-		method: 'GET',
-		qs: {
-			q: q,
-			repo_id: repo,
-		},
+		method: 'DELETE',
+		qs: {},
 		body: {},
-		uri: `${baseURL}/api/v2.1/search-file/` as string,
+		uri: `${baseURL}/api/v2.1/share-links/${token}/` as string,
 		json: true,
 	};
+	console.log(options);
 
 	const responseData = await this.helpers.requestWithAuthentication.call(
 		this,

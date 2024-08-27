@@ -30,7 +30,7 @@ export async function getRepos(this: ILoadOptionsFunctions): Promise<INodeProper
 	return returnData;
 }
 
-export async function getFolders(
+async function getFolders(
 	this: ILoadOptionsFunctions,
 	repoParameterName: string,
 ): Promise<INodePropertyOptions[]> {
@@ -130,5 +130,41 @@ export async function getFilesInRepo(this: ILoadOptionsFunctions): Promise<INode
 			}
 		}
 	}
+	return returnData;
+}
+
+export async function getShareLink(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+	const returnData: INodePropertyOptions[] = [];
+
+	const credentials = await this.getCredentials('seafileApi');
+	const baseURL = credentials?.domain;
+
+	const repo = this.getCurrentNodeParameter('repo') as string;
+	if (!repo) {
+		return returnData;
+	}
+
+	const options: IRequestOptions = {
+		method: 'GET',
+		qs: {},
+		uri: `${baseURL}/api/v2.1/share-links/`,
+		json: true,
+	};
+
+	const shareLinkList = await this.helpers.requestWithAuthentication.call(
+		this,
+		'seafileApi',
+		options,
+	);
+
+	for (const links of shareLinkList) {
+		if (links.repo_id == repo) {
+			returnData.push({
+				name: links.path,
+				value: links.token,
+			});
+		}
+	}
+
 	return returnData;
 }

@@ -21,21 +21,12 @@ export const properties: INodeProperties[] = [
 		description:
 			'The name of SeaTable library to access. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
-	{
-		displayName: 'Keyword',
-		name: 'q',
-		type: 'string',
-		default: '',
-		required: true,
-		description: 'Please provide the name of a file',
-		hint: 'Search throught the path',
-	},
 ];
 
 const displayOptions = {
 	show: {
-		resource: ['search'],
-		operation: ['search'],
+		resource: ['share'],
+		operation: ['list'],
 	},
 };
 
@@ -50,16 +41,14 @@ export async function execute(
 
 	// get parameters
 	const repo = this.getNodeParameter('repo', index) as string;
-	const q = this.getNodeParameter('q', index) as string;
 
 	const options: IRequestOptions = {
 		method: 'GET',
 		qs: {
-			q: q,
 			repo_id: repo,
 		},
 		body: {},
-		uri: `${baseURL}/api/v2.1/search-file/` as string,
+		uri: `${baseURL}/api/v2.1/share-links/` as string,
 		json: true,
 	};
 

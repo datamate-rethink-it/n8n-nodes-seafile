@@ -4,6 +4,7 @@ import * as file from './files';
 import * as search from './search';
 import * as info from './info';
 import * as folders from './folders';
+import * as share from './shares';
 
 import { Seafile } from './Interfaces';
 
@@ -33,6 +34,8 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				responseData = await info[seafile.operation].execute.call(this, i);
 			} else if (seafile.resource === 'folders') {
 				responseData = await folders[seafile.operation].execute.call(this, i);
+			} else if (seafile.resource === 'share') {
+				responseData = await share[seafile.operation].execute.call(this, i);
 			}
 
 			const executionData = this.helpers.constructExecutionMetaData(
