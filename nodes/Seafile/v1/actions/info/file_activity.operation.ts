@@ -66,7 +66,7 @@ export const properties: INodeProperties[] = [
 				default: '',
 				description:
 					'Returns events that happened after this date. Supported inputs are date (ISO format like 2024-08-25T15:34:47 or timestamps with 13 digits.',
-				hint: 'You can choose a date the limit the returned events or you use an expression like {{ $now - (2 * 24 * 60 * 60 * 1000) }} to get only events of the last two days.',
+				hint: 'Choose a date or use an expression like {{ $now - (2*24*60*60*1000) }} to get only events of the last two days.',
 			},
 			{
 				displayName: 'Event Time Before',
@@ -74,7 +74,7 @@ export const properties: INodeProperties[] = [
 				type: 'dateTime',
 				default: '',
 				description:
-					'The date and time when the file was modified ("to" value). Supported inputs are date (ISO format like 2024-08-25T15:34:47 or timestamps with 13 digits.',
+					'Return events that happened before this date. Supported inputs are date (ISO format like 2024-08-25T15:34:47 or timestamps with 13 digits.',
 			},
 		],
 	},

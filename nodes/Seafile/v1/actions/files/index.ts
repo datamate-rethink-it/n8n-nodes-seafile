@@ -7,10 +7,11 @@ import * as rename from './rename.operation';
 import * as copy from './copy.operation';
 import * as lock from './lock.operation';
 import * as unlock from './unlock.operation';
+import * as history from './history.operation';
 
 import type { INodeProperties } from 'n8n-workflow';
 
-export { get, remove, upload, download, move, rename, copy, lock, unlock };
+export { get, remove, upload, download, move, rename, copy, lock, unlock, history };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -47,6 +48,12 @@ export const descriptions: INodeProperties[] = [
 				value: 'get',
 				description: 'Get the details of a file',
 				action: 'Get file details',
+			},
+			{
+				name: 'History',
+				value: 'history',
+				description: 'Get the history of a file',
+				action: 'Get file history',
 			},
 			{
 				name: 'Lock',
@@ -90,4 +97,5 @@ export const descriptions: INodeProperties[] = [
 	...copy.description,
 	...lock.description,
 	...unlock.description,
+	...history.description,
 ];

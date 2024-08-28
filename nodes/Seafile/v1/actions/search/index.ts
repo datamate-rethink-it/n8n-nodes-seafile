@@ -1,9 +1,9 @@
 import * as search from './search.operation';
-import * as search_full from './search_full.operation';
+import * as search_adv from './search_adv.operation';
 
 import type { INodeProperties } from 'n8n-workflow';
 
-export { search, search_full };
+export { search, search_adv };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -24,14 +24,14 @@ export const descriptions: INodeProperties[] = [
 				action: 'Search a file',
 			},
 			{
-				name: 'Full-Text Search',
-				value: 'search_full',
-				description: 'Search a file in the library',
-				action: 'Run a full text search',
+				name: 'File Search (Advanced)',
+				value: 'search_adv',
+				description: 'Search for a file or file content with advanced filters',
+				action: 'Search for a file / file content',
 			},
 		],
 		default: 'search',
 	},
 	...search.description,
-	...search_full.description,
+	...search_adv.description,
 ];

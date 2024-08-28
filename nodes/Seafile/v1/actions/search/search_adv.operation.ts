@@ -10,7 +10,7 @@ import { parseToTimestamp } from '../../GenericFunctions';
 
 export const properties: INodeProperties[] = [
 	{
-		displayName: 'This full-text search requires Seafile Professional Edition.',
+		displayName: 'This advanced search requires Seafile Professional Edition.',
 		name: 'notice',
 		type: 'notice',
 		default: '',
@@ -22,6 +22,7 @@ export const properties: INodeProperties[] = [
 		default: '',
 		required: true,
 		description: 'This keyword will be searched in the file names and also the file content',
+		hint: 'Wildcard search is not allowed. If you want to get all modified files, use the action `File Activity` instead.',
 	},
 	{
 		displayName: 'Where to Search',
@@ -180,7 +181,8 @@ export const properties: INodeProperties[] = [
 				type: 'dateTime',
 				default: '',
 				description:
-					'The date and time when the file was modified ("from" value). Supported inputs are date (ISO format like 2024-08-25T15:34:47 or timestamps with 13 digits.',
+					'Returns files that were modified after this date. Supported inputs are date (ISO format like 2024-08-25T15:34:47 or timestamps with 13 digits.',
+				hint: 'Choose a date or use an expression like {{ $now - (2*24*60*60*1000) }} to get only files modified within the last two days.',
 			},
 			{
 				displayName: 'Last Modified Before',
@@ -188,7 +190,7 @@ export const properties: INodeProperties[] = [
 				type: 'dateTime',
 				default: '',
 				description:
-					'The date and time when the file was modified ("to" value). Supported inputs are date (ISO format like 2024-08-25T15:34:47 or timestamps with 13 digits.',
+					'Returns files that were modified after this date. Supported inputs are date (ISO format like 2024-08-25T15:34:47 or timestamps with 13 digits.',
 			},
 			{
 				displayName: 'File Size Greater Than',
@@ -211,7 +213,7 @@ export const properties: INodeProperties[] = [
 const displayOptions = {
 	show: {
 		resource: ['search'],
-		operation: ['search_full'],
+		operation: ['search_adv'],
 	},
 };
 

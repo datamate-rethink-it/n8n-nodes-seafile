@@ -2,7 +2,7 @@ import type { AllEntities, Entity } from 'n8n-workflow';
 
 type SeafileMap = {
 	files: 'get' | 'remove' | 'upload' | 'download' | 'move' | 'rename' | 'copy' | 'lock' | 'unlock';
-	search: 'search';
+	search: 'search' | 'search_adv';
 	info: 'account' | 'server' | 'file_activity';
 	folders: 'create' | 'remove' | 'list';
 	share: 'internal' | 'create' | 'remove' | 'list';
