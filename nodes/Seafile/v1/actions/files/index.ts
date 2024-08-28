@@ -28,13 +28,13 @@ export const descriptions: INodeProperties[] = [
 			{
 				name: 'Copy',
 				value: 'copy',
-				description: 'Copy a file',
-				action: 'Copy a file',
+				description: 'Create a copy of an existing file',
+				action: 'Copy file',
 			},
 			{
 				name: 'Delete',
 				value: 'remove',
-				description: 'Delete one file',
+				description: 'Delete a file from the library',
 				action: 'Delete a file',
 			},
 			{
@@ -46,25 +46,25 @@ export const descriptions: INodeProperties[] = [
 			{
 				name: 'Get',
 				value: 'get',
-				description: 'Get the details of a file',
+				description: 'Show the details of a file',
 				action: 'Get file details',
 			},
 			{
 				name: 'History',
 				value: 'history',
-				description: 'Get the history of a file',
+				description: 'Get the history of a file with all changes',
 				action: 'Get file history',
 			},
 			{
 				name: 'Lock',
 				value: 'lock',
-				description: 'Lock a file',
+				description: 'Set a file to read-only and prevent further changes',
 				action: 'Lock a file',
 			},
 			{
 				name: 'Move',
 				value: 'move',
-				description: 'Move a file',
+				description: 'Move a file to another folder or library',
 				action: 'Move a file',
 			},
 			{
@@ -76,17 +76,17 @@ export const descriptions: INodeProperties[] = [
 			{
 				name: 'Unlock',
 				value: 'unlock',
-				description: 'Unlock a file',
+				description: 'Make a file editable again',
 				action: 'Unlock a file',
 			},
 			{
 				name: 'Upload',
 				value: 'upload',
-				description: 'Upload a file',
+				description: 'Upload a file to the Seafile server',
 				action: 'Upload a file',
 			},
 		],
-		default: 'get',
+		default: 'upload',
 	},
 	...get.description,
 	...remove.description,

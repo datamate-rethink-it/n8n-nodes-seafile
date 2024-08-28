@@ -72,5 +72,8 @@ export async function execute(
 		options,
 	);
 
-	return this.helpers.returnJsonArray(responseData as IDataObject[]);
+	if (responseData.tagged_files) {
+		return this.helpers.returnJsonArray(responseData.tagged_files as IDataObject[]);
+	}
+	return [];
 }

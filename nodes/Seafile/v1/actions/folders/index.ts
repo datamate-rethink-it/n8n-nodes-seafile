@@ -19,22 +19,22 @@ export const descriptions: INodeProperties[] = [
 		},
 		options: [
 			{
-				name: 'Create Folder',
+				name: 'Create',
 				value: 'create',
 				description: 'Create a folder in a library',
 				action: 'Create a folder',
 			},
 			{
-				name: 'Delete Folder',
+				name: 'Delete',
 				value: 'remove',
-				description: 'Delete a folder in a library',
+				description: 'Delete a folder in a library and move it to trash',
 				action: 'Delete a folder',
 			},
 			{
-				name: 'List Folder',
+				name: 'List',
 				value: 'list',
-				description: 'List all files in a folder',
-				action: 'List files in a folder',
+				description: 'Returns the files and folders in a given folder',
+				action: 'List a folder',
 			},
 		],
 		default: 'create',

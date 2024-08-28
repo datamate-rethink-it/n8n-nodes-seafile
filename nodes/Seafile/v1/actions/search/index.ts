@@ -20,14 +20,14 @@ export const descriptions: INodeProperties[] = [
 			{
 				name: 'File Search',
 				value: 'search',
-				description: 'Search for a file in a specific library by file name',
+				description: 'Search for a file in a specific library by its file name',
 				action: 'Search a file',
 			},
 			{
 				name: 'File Search (Advanced)',
 				value: 'search_adv',
 				description: 'Search for a file or file content with advanced filters',
-				action: 'Search for a file / file content',
+				action: 'Search a file / file content',
 			},
 		],
 		default: 'search',

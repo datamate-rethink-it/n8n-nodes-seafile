@@ -76,5 +76,8 @@ export async function execute(
 		options,
 	);
 
-	return this.helpers.returnJsonArray(responseData as IDataObject[]);
+	if (responseData.file_tags) {
+		return this.helpers.returnJsonArray(responseData.file_tags as IDataObject[]);
+	}
+	return [];
 }
