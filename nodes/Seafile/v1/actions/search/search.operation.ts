@@ -27,8 +27,8 @@ export const properties: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		required: true,
-		description: 'Please provide the name of a file',
-		hint: 'Search throught the path',
+		description: 'The string to search for',
+		hint: 'Keyword is used to search for the filename and the file path. This is a case-insensitive substring match search (e.g. `Voi` will find `Invoices`)',
 	},
 ];
 

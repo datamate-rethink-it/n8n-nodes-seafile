@@ -40,7 +40,6 @@ export const properties: INodeProperties[] = [
 		type: 'string',
 		placeholder: '',
 		default: '',
-		description: 'Password to create an encrypted library',
 		hint: 'This is a case-insensitive substring match search (e.g. `Voi` will find `Invoices`)',
 	},
 ];

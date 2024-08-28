@@ -22,7 +22,7 @@ export const properties: INodeProperties[] = [
 		default: '',
 		required: true,
 		description: 'This keyword will be searched in the file names and also the file content',
-		hint: 'Wildcard search is not allowed. If you want to get all modified files, use the action `File Activity` instead.',
+		hint: 'The keyword must be at least three characters long. Wildcard search is not allowed. If you want to get all modified files, use the action `File Activity` instead.',
 	},
 	{
 		displayName: 'Where to Search',
@@ -228,6 +228,11 @@ export async function execute(
 
 	// get parameters
 	const q = this.getNodeParameter('q', index) as string;
+
+	if (q.length < 3) {
+		throw new Error('Keyword must be at least 3 chars long!');
+	}
+
 	const search_target = this.getNodeParameter('search_target', index) as string;
 	const filters = this.getNodeParameter('filters', index);
 

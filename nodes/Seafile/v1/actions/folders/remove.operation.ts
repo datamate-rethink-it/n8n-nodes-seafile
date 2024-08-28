@@ -25,12 +25,18 @@ export const properties: INodeProperties[] = [
 		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
 		displayName: 'Folder Path',
 		name: 'folder_path',
-		type: 'string',
+		type: 'options',
 		placeholder: '/invoices/2024/',
 		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'getFoldersInRepo',
+			loadOptionsDependsOn: ['repo'],
+		},
 		default: '',
-		description: 'Provide the complete folder path',
-		hint: 'The folder, along with all files and subfolders, will be moved to the trash.',
+		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
+		description:
+			'Provide the target path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+		hint: 'The folder, along with all files and subfolders within it, will be moved to the trash',
 	},
 ];
 

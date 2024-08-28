@@ -7,8 +7,6 @@ import {
 } from 'n8n-workflow';
 import { updateDisplayOptions } from 'n8n-workflow';
 
-import * as path from 'path';
-
 export const properties: INodeProperties[] = [
 	{
 		displayName: 'Library Name or ID',
@@ -24,14 +22,29 @@ export const properties: INodeProperties[] = [
 			'The name of SeaTable library to access. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
 	{
-		displayName: 'File Path',
+		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+		displayName: 'Target Folder',
 		name: 'target_path',
+		type: 'options',
+		placeholder: '/invoices/2024/',
+		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'getFoldersInRepo',
+			loadOptionsDependsOn: ['repo'],
+		},
+		default: '',
+		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
+		description:
+			'Provide the target path for the file to upload. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+	},
+	{
+		displayName: 'File Name',
+		name: 'target_file',
 		type: 'string',
-		placeholder: '/invoices/2024/invoice.pdf',
+		placeholder: 'invoice.pdf',
 		default: '',
 		required: true,
-		description:
-			'The file path of the file to upload. Has to contain the full path. The parent folder does not has to exist.',
+		description: 'The file name of the file to upload',
 	},
 	{
 		displayName: 'Overwrite Existing',
@@ -52,6 +65,9 @@ export const properties: INodeProperties[] = [
 		displayName: 'File Content',
 		name: 'fileContent',
 		type: 'string',
+		typeOptions: {
+			rows: 4,
+		},
 		default: '',
 		displayOptions: {
 			show: {
@@ -100,9 +116,10 @@ export async function execute(
 	// get parameters
 	const repo = this.getNodeParameter('repo', index) as string;
 	const target_path = this.getNodeParameter('target_path', index) as string;
+	const target_file = this.getNodeParameter('target_file', index) as string;
 	const replace = this.getNodeParameter('overwrite', index) as boolean;
-	const file_name = path.basename(target_path);
-	const relative_path = path.dirname(target_path).replace(/^\/|\/$/g, '');
+	const file_name = target_file;
+	const relative_path = target_path.replace(/^\/|\/$/g, '');
 
 	// get upload-link
 	const getUploadLinkOptions: IRequestOptions = {

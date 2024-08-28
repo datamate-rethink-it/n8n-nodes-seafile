@@ -32,13 +32,13 @@ export const descriptions: INodeProperties[] = [
 				action: 'Delete a tag',
 			},
 			{
-				name: 'Tags',
+				name: 'List Tags',
 				value: 'list_tags',
 				description: 'Returns all tags of a file',
 				action: 'List tags of a file',
 			},
 			{
-				name: 'Tagged',
+				name: 'List Tagged',
 				value: 'list_tagged',
 				description: 'Returns all files that have a specific tag assigned',
 				action: 'List all tagged files',
