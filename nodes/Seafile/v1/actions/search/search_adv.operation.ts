@@ -77,16 +77,24 @@ export const properties: INodeProperties[] = [
 		},
 	},
 	{
+		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
 		displayName: 'Search Path',
 		name: 'search_path',
-		type: 'string',
+		type: 'options',
+		placeholder: '/invoices/2024/',
 		default: '',
-		description: 'Path inside the library to search in',
 		displayOptions: {
 			show: {
 				search_target: ['repo_id'],
 			},
 		},
+		typeOptions: {
+			loadOptionsMethod: 'getFoldersInRepo',
+			loadOptionsDependsOn: ['repo'],
+		},
+		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
+		description:
+			'Path inside the library to search in. Choose from the list, or specify the path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
 	{
 		displayName: 'Search Filters',

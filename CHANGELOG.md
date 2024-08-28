@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.1 (2024-08-28)
+
+- Improved return values structure of the File Search
+- Add loadOptionsMethod for search_path in File Search (advanced)
+
 ## v2.0.0 (2024-08-28)
 
 Complete rewrite of the Seafile node for n8n with now 33 actions:

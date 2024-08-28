@@ -69,5 +69,8 @@ export async function execute(
 		options,
 	);
 
-	return this.helpers.returnJsonArray(responseData as IDataObject[]);
+	if (responseData.data) {
+		return this.helpers.returnJsonArray(responseData.data as IDataObject[]);
+	}
+	return [];
 }
