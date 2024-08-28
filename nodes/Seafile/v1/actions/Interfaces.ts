@@ -14,6 +14,7 @@ type SeafileMap = {
 		| 'list_up'
 		| 'list_down';
 	tags: 'add' | 'remove' | 'list_tags' | 'list_tagged';
+	libraries: 'list' | 'create';
 };
 
 export type Seafile = AllEntities<SeafileMap>;
@@ -24,3 +25,4 @@ export type SeafileInfo = Entity<SeafileMap, 'info'>;
 export type SeafileFolders = Entity<SeafileMap, 'folders'>;
 export type SeafileShare = Entity<SeafileMap, 'share'>;
 export type SeafileTags = Entity<SeafileMap, 'tags'>;
+export type SeafileLibraries = Entity<SeafileMap, 'libraries'>;
