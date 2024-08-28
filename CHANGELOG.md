@@ -1,61 +1,24 @@
 # Changelog
 
-## v0.9.1 (2024-02-05)
+## v2.0.0 (2024-08-28)
 
-Fixing wrong url in Image Watermark and Host Reputation endpoint.
+Complete rewrite of the Seafile node for n8n with now 33 actions:
 
-## v0.9.0 (2024-02-03)
+- File Actions (10)
+- Folder Actions (3)
+- Info Actions (3)
+- Library Actions (4)
+- Search Actions (2)
+- Share Actions (7)
+- Tag Actions (4)
 
-New endpoints added:
+This new version introduces breaking changes, including modifications to the authentication process, which prevent the creation of a compatible update for n8n. As a result, existing workflows will need to be rebuilt. The change in authentication was made because the node now exclusively supports the Account-Token, no longer accommodating the Repo-Token.
 
-**Data Tools**
+## v1.1.0 (2024-01-01)
 
-- Email Validate
-- Phone Validate
-- User Agent Lookup
-- Bad Word Filter
-- Convert
+Initial version developed by https://www.npmjs.com/~vquie supporting these operations:
 
-**WWW**
-
-- Browser Bot
-- HTML Clean
-- URL Info
-
-**Telephony**
-
-- Phone Verify
-- SMS Verify
-- Verify Security Code
-- Phone Playback
-- HLR Lookup
-
-**Geolocation**
-
-- IP Info
-- Geocode Address
-- Geocode Reverse
-
-**Security and Networking**
-
-- Domain Lookup
-- Email Verify
-- IP-Probe
-- IP-Blocklist
-- Host Reputation
-
-**E-commerce**
-
-- BIN Lookup
-- Currency Convert
-
-**Imaging**
-
-- HTML Render
-- Image Resize
-- Image Watermark
-- QR Code
-
-## v0.0.1 (2024-02-02)
-
-Initial version with basic authentication.
+- Upload File
+- Get Download Link
+- List Directory
+- Delete File
