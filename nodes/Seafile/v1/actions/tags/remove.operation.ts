@@ -94,8 +94,6 @@ export async function execute(
 		}
 	}
 
-	console.log(file_tag_id);
-
 	// remove file tag
 	if (file_tag_id) {
 		const options: IRequestOptions = {

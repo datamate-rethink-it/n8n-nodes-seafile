@@ -147,7 +147,7 @@ export const properties: INodeProperties[] = [
 const displayOptions = {
 	show: {
 		resource: ['share'],
-		operation: ['create'],
+		operation: ['create_down'],
 	},
 };
 

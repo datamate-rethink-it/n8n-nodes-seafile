@@ -5,7 +5,14 @@ type SeafileMap = {
 	search: 'search' | 'search_adv';
 	info: 'account' | 'server' | 'file_activity';
 	folders: 'create' | 'remove' | 'list';
-	share: 'internal' | 'create' | 'remove' | 'list';
+	share:
+		| 'internal'
+		| 'create_down'
+		| 'create_up'
+		| 'remove_down'
+		| 'remove_up'
+		| 'list_up'
+		| 'list_down';
 	tags: 'add' | 'remove' | 'list_tags' | 'list_tagged';
 };
 

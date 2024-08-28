@@ -9,7 +9,7 @@ import { updateDisplayOptions } from 'n8n-workflow';
 
 export const properties: INodeProperties[] = [
 	{
-		displayName: 'Source Library Name or ID',
+		displayName: 'Library Name or ID',
 		name: 'repo',
 		type: 'options',
 		placeholder: 'Select a Library',
@@ -23,41 +23,32 @@ export const properties: INodeProperties[] = [
 	},
 	{
 		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
-		displayName: 'File Path',
-		name: 'file_path',
+		displayName: 'Folder Path',
+		name: 'folder_path',
 		type: 'options',
-		placeholder: '/invoices/2024/invoice.pdf',
+		placeholder: 'Select a file',
 		required: true,
 		typeOptions: {
-			loadOptionsMethod: 'getFilesInRepo',
+			loadOptionsMethod: 'getFoldersInRepo',
 			loadOptionsDependsOn: ['repo'],
 		},
 		default: '',
 		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
 		description:
-			'Provide the file name with complete path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+			'Provide the complete folder path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
 	{
-		displayName: 'Tag Name or ID',
-		name: 'tag',
-		type: 'options',
-		placeholder: 'Select a Tag',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getTags',
-			loadOptionsDependsOn: ['repo'],
-		},
+		displayName: 'Password',
+		name: 'pw',
+		type: 'string',
 		default: '',
-		description:
-			'The tag you would like to assign to the file. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-		hint: 'If there are no tags available, you have to create one first in Seafile',
 	},
 ];
 
 const displayOptions = {
 	show: {
-		resource: ['tags'],
-		operation: ['add'],
+		resource: ['share'],
+		operation: ['create_up'],
 	},
 };
 
@@ -72,24 +63,24 @@ export async function execute(
 
 	// get parameters
 	const repo = this.getNodeParameter('repo', index) as string;
-	const file_path = this.getNodeParameter('file_path', index) as string;
-	const repo_tag_id = this.getNodeParameter('tag', index) as string;
+	const path = this.getNodeParameter('folder_path', index) as string;
+	const pw = this.getNodeParameter('pw', index) as string;
+
+	// calculate query params
+	const params: any = {};
+	if (pw) params.password = pw;
 
 	const options: IRequestOptions = {
 		method: 'POST',
-		qs: {
-			repo_id: repo,
-		},
+		qs: {},
 		body: {
-			file_path: file_path,
-			repo_tag_id: repo_tag_id,
+			repo_id: repo,
+			path: path,
+			...params,
 		},
-		uri: `${baseURL}/api/v2.1/repos/${repo}/file-tags/` as string,
+		uri: `${baseURL}/api/v2.1/upload-links/` as string,
 		json: true,
 	};
-
-	// DEBUG
-	//console.log(options);
 
 	const responseData = await this.helpers.requestWithAuthentication.call(
 		this,
