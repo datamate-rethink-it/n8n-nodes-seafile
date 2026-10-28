@@ -6,6 +6,7 @@ import {
 	IRequestOptions,
 } from 'n8n-workflow';
 import { updateDisplayOptions } from 'n8n-workflow';
+import { folderResourceLocator } from '../../helpers/descriptions';
 
 export const properties: INodeProperties[] = [
 	{
@@ -21,22 +22,12 @@ export const properties: INodeProperties[] = [
 		description:
 			'The name of SeaTable library to access. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
-	{
-		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+	folderResourceLocator({
 		displayName: 'Target Folder',
 		name: 'target_path',
-		type: 'options',
-		placeholder: '/invoices/2024/',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getFoldersInRepo',
-			loadOptionsDependsOn: ['repo'],
-		},
-		default: '',
-		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
 		description:
 			'Provide the target path for the file to upload. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-	},
+	}),
 	{
 		displayName: 'File Name',
 		name: 'target_file',
@@ -115,7 +106,7 @@ export async function execute(
 
 	// get parameters
 	const repo = this.getNodeParameter('repo', index) as string;
-	const target_path = this.getNodeParameter('target_path', index) as string;
+	const target_path = this.getNodeParameter('target_path', index, '', { extractValue: true }) as string;
 	const target_file = this.getNodeParameter('target_file', index) as string;
 	const replace = this.getNodeParameter('overwrite', index) as boolean;
 	const file_name = target_file;

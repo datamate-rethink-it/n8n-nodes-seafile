@@ -6,7 +6,7 @@ import type {
 } from 'n8n-workflow';
 
 import { versionDescription } from './actions/Seafile.node';
-import { loadOptions } from './methods';
+import { loadOptions, listSearch } from './methods';
 import { router } from './actions/router';
 
 export class SeafileV1 implements INodeType {
@@ -19,7 +19,7 @@ export class SeafileV1 implements INodeType {
 		};
 	}
 
-	methods = { loadOptions };
+	methods = { loadOptions, listSearch };
 
 	async execute(this: IExecuteFunctions) {
 		return router.call(this);

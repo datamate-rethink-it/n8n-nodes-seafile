@@ -6,6 +6,7 @@ import {
 	IRequestOptions,
 } from 'n8n-workflow';
 import { updateDisplayOptions } from 'n8n-workflow';
+import { fileResourceLocator, folderResourceLocator } from '../../helpers/descriptions';
 
 export const properties: INodeProperties[] = [
 	{
@@ -21,22 +22,12 @@ export const properties: INodeProperties[] = [
 		description:
 			'The name of SeaTable library to access. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
-	{
-		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+	fileResourceLocator({
 		displayName: 'File Path',
 		name: 'file_path',
-		type: 'options',
-		placeholder: '/invoices/2024/invoice.pdf',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getFilesInRepo',
-			loadOptionsDependsOn: ['repo'],
-		},
-		default: '',
-		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
 		description:
 			'Provide the file name with complete path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-	},
+	}),
 	{
 		displayName: 'Target Library Name or ID',
 		name: 'target_repo',
@@ -50,22 +41,12 @@ export const properties: INodeProperties[] = [
 		description:
 			'The name of SeaTable library to access. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
-	{
-		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+	folderResourceLocator({
 		displayName: 'Target Path',
 		name: 'target_path',
-		type: 'options',
-		placeholder: '/invoices/2024/',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getFoldersInTargetRepo',
-			loadOptionsDependsOn: ['target_repo'],
-		},
-		default: '',
-		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
 		description:
 			'Provide the target path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-	},
+	}, 'getTargetFoldersList'),
 ];
 
 const displayOptions = {
@@ -86,9 +67,9 @@ export async function execute(
 
 	// get parameters
 	const source_repo = this.getNodeParameter('repo', index) as string;
-	const source_path = this.getNodeParameter('file_path', index) as string;
+	const source_path = this.getNodeParameter('file_path', index, '', { extractValue: true }) as string;
 	const target_repo = this.getNodeParameter('target_repo', index) as string;
-	const target_path = this.getNodeParameter('target_path', index) as string;
+	const target_path = this.getNodeParameter('target_path', index, '', { extractValue: true }) as string;
 
 	const options: IRequestOptions = {
 		method: 'POST',

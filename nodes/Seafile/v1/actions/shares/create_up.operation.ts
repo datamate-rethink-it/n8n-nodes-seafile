@@ -6,6 +6,7 @@ import {
 	IRequestOptions,
 } from 'n8n-workflow';
 import { updateDisplayOptions } from 'n8n-workflow';
+import { folderResourceLocator } from '../../helpers/descriptions';
 
 export const properties: INodeProperties[] = [
 	{
@@ -21,22 +22,12 @@ export const properties: INodeProperties[] = [
 		description:
 			'The name of SeaTable library to access. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
-	{
-		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+	folderResourceLocator({
 		displayName: 'Folder Path',
 		name: 'folder_path',
-		type: 'options',
-		placeholder: 'Select a file',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getFoldersInRepo',
-			loadOptionsDependsOn: ['repo'],
-		},
-		default: '',
-		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
 		description:
 			'Provide the complete folder path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-	},
+	}),
 	{
 		displayName: 'Password',
 		name: 'pw',
@@ -63,7 +54,7 @@ export async function execute(
 
 	// get parameters
 	const repo = this.getNodeParameter('repo', index) as string;
-	const path = this.getNodeParameter('folder_path', index) as string;
+	const path = this.getNodeParameter('folder_path', index, '', { extractValue: true }) as string;
 	const pw = this.getNodeParameter('pw', index) as string;
 
 	// calculate query params

@@ -6,6 +6,7 @@ import {
 	IDataObject,
 } from 'n8n-workflow';
 import { updateDisplayOptions } from 'n8n-workflow';
+import { fileResourceLocator } from '../../helpers/descriptions';
 
 import * as path from 'path';
 
@@ -23,22 +24,12 @@ export const properties: INodeProperties[] = [
 		description:
 			'The name of SeaTable library to access. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 	},
-	{
-		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+	fileResourceLocator({
 		displayName: 'File Path',
 		name: 'file_path',
-		type: 'options',
-		placeholder: '/invoices/2024/invoice.pdf',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getFilesInRepo',
-			loadOptionsDependsOn: ['repo'],
-		},
-		default: '',
-		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
 		description:
 			'Provide the file name with complete path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-	},
+	}),
 	{
 		displayName: 'Download Link Only',
 		name: 'link_only',
@@ -66,7 +57,7 @@ export async function execute(
 
 	// get parameters
 	const repo = this.getNodeParameter('repo', index) as string;
-	const download_path = this.getNodeParameter('file_path', index) as string;
+	const download_path = this.getNodeParameter('file_path', index, '', { extractValue: true }) as string;
 	const file_name = path.basename(download_path);
 	const link_only = this.getNodeParameter('link_only', index) as string;
 

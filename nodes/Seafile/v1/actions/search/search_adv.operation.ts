@@ -6,6 +6,7 @@ import {
 	IRequestOptions,
 } from 'n8n-workflow';
 import { updateDisplayOptions } from 'n8n-workflow';
+import { folderResourceLocator } from '../../helpers/descriptions';
 import { parseToTimestamp } from '../../GenericFunctions';
 
 export const properties: INodeProperties[] = [
@@ -76,26 +77,18 @@ export const properties: INodeProperties[] = [
 			},
 		},
 	},
-	{
-		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+	folderResourceLocator({
 		displayName: 'Search Path',
 		name: 'search_path',
-		type: 'options',
-		placeholder: '/invoices/2024/',
-		default: '',
+		description:
+			'Path inside the library to search in. Choose from the list, or specify the path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+		required: false,
 		displayOptions: {
 			show: {
 				search_target: ['repo_id'],
 			},
 		},
-		typeOptions: {
-			loadOptionsMethod: 'getFoldersInRepo',
-			loadOptionsDependsOn: ['repo'],
-		},
-		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
-		description:
-			'Path inside the library to search in. Choose from the list, or specify the path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-	},
+	}),
 	{
 		displayName: 'Search Filters',
 		name: 'filters',
@@ -248,7 +241,7 @@ export async function execute(
 	// search target: single library
 	if (search_target === 'repo_id') {
 		search_repo = this.getNodeParameter('repo', index) as string;
-		let search_path = this.getNodeParameter('search_path', index) as string;
+		let search_path = this.getNodeParameter('search_path', index, '', { extractValue: true }) as string;
 		if (search_path) {
 			filters.search_path = search_path;
 		}

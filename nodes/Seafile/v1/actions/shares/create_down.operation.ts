@@ -6,6 +6,7 @@ import {
 	IRequestOptions,
 } from 'n8n-workflow';
 import { updateDisplayOptions } from 'n8n-workflow';
+import { fileResourceLocator, folderResourceLocator } from '../../helpers/descriptions';
 
 export const properties: INodeProperties[] = [
 	{
@@ -37,48 +38,28 @@ export const properties: INodeProperties[] = [
 		],
 		default: 'file',
 	},
-	{
-		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+	fileResourceLocator({
 		displayName: 'File Path',
 		name: 'file_path',
-		type: 'options',
-		placeholder: 'Select the path',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getFilesInRepo',
-			loadOptionsDependsOn: ['repo'],
-		},
+		description:
+			'Provide the file name with complete path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				type: ['file'],
 			},
 		},
-		default: '',
-		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
-		description:
-			'Provide the file name with complete path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-	},
-	{
-		// eslint-disable-next-line n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options
+	}),
+	folderResourceLocator({
 		displayName: 'Folder Path',
 		name: 'folder_path',
-		type: 'options',
-		placeholder: 'Select a file',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getFoldersInRepo',
-			loadOptionsDependsOn: ['repo'],
-		},
+		description:
+			'Provide the complete folder path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				type: ['folder'],
 			},
 		},
-		default: '',
-		// eslint-disable-next-line n8n-nodes-base/node-param-description-wrong-for-dynamic-options
-		description:
-			'Provide the complete folder path. Choose from the list, or specify the complete path using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-	},
+	}),
 	{
 		displayName: 'Permission',
 		name: 'permission',
@@ -170,9 +151,9 @@ export async function execute(
 	// calculate query params
 	let path = '';
 	if (type == 'folder') {
-		path = this.getNodeParameter('folder_path', index) as string;
+		path = this.getNodeParameter('folder_path', index, '', { extractValue: true }) as string;
 	} else {
-		path = this.getNodeParameter('file_path', index) as string;
+		path = this.getNodeParameter('file_path', index, '', { extractValue: true }) as string;
 	}
 
 	const params: any = {};
